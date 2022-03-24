@@ -17,5 +17,7 @@ Lh_var = {'name':[],'value':[],'type':[]}
 Lh_var_df = pd.DataFrame(Lh_var)
 
 rh_var = []
-print (type(rh_var))
+
+#first check for functions
+
 
