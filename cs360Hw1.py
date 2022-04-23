@@ -24,14 +24,16 @@ Lh_var_df = pd.DataFrame(Lh_var)
 rh_var = []
 operations = ['+','-','/','*']
 
+#find the main function blocks
+sep_func = source_string.split('\n\n')
+
 #first check for functions
 #make a regex for each col of the df
 func_name_regex = r'\w+\s(\w+)\(.*\)\{'
 func_return_regex= r'(\w+)\s\w+\(.*\)\{'
 func_param_regex= r'\w+\s\w+\((.*)\)\{'
 test_re = r'\w+\s\w+\([^)]*\)\{.*[^;][^\s][^\}]'
-print(re.findall(test_re,stripped_source_string))
-#print(re.findall(func_name_regex,source_string),re.findall(func_return_regex,source_string), re.findall(func_param_regex,source_string))
+#print(re.findall(func_name_regex,sep_func[1]),re.findall(func_return_regex,sep_func[1]), re.findall(func_param_regex,sep_func[1]))
 
 #fill in funcdf
 function_df['name']= re.findall(func_name_regex,source_string)
@@ -61,15 +63,18 @@ lhscalar_intial_regex = r'int \w+=([^,\s;]*);'
 #before continuing test oout .split to return the contents of a string
 #first return with the [^\}]
 #multiple declarations
-
+lhmulti_name_regex = r'int (\w+)=[^,\s;]*,(\w+)=[^;]*;'
+lhmulti_type_regex = r'(int) \w+=[^,\s;]*,\w+=[^;]*;'
+lhmulti_intial_regex = r'int \w+=([^,\s;]*),\w+=([^;]*);'
 #arrays
+lharr_name_regex = r'int (\w+)\[[0-9]\]=\{[^}]+\};'
+lharr_type_regex = r'(int) \w+\[[0-9]\]=\{[^}]+\};'
+lharr_intial_regex = r'int \w+\[[0-9]\]=\{([^}]+)\};'
 
-lhvar_name_regex = r'\w+\s\w+='
-lhvar_intial_regex = r''
-lhvar_type_regex = r''
-lhvar_value_regex = r''
-var_test_regex=r'\w+.*=.*;'
+#print(re.findall(lhmulti_name_regex,source_string), re.findall(lhmulti_type_regex,source_string),re.findall(lhmulti_intial_regex,source_string))
+#print(re.findall(lharr_name_regex,source_string),re.findall(lharr_intial_regex,source_string) )
 
-#print(re.findall(lhscalar_name_regex,source_string), re.findall(lhscalar_type_regex,source_string),re.findall(lhscalar_intial_regex,source_string))
+#fill in variable initalization df lh_var_df
+
 
 
